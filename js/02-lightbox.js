@@ -10,16 +10,16 @@ const gallery = document.querySelector(".gallery");
 // create gallery fom task 1
 const galleryMarkup = createGallery(galleryItems);
 
-function createGallery (gallery) {
-    return gallery.map(({preview, original, description}) => {
+function createGallery (galleryItems) {
+    return galleryItems.map((item) => {
         return `
         <li class="gallery__item">
-            <a class="gallery__link" href="${original}">
+            <a class="gallery__link" href="${item.original}">
                 <img
                 class="gallery__image"
-                src='${preview}'
-                data-source='${original}'
-                alt='${description}'
+                src='${item.preview}'
+                data-source='${item.original}'
+                alt='${item.description}'
                 />
             </a>
         </li>`
@@ -34,7 +34,7 @@ gallery.innerHTML = galleryMarkup;
 
 // documentation https://simplelightbox.com
 
-var lightbox = new SimpleLightbox('.gallery a', {
+new SimpleLightbox('.gallery a', {
     captionsData: "alt",
     captionDelay: 250,
 

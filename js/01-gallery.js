@@ -1,7 +1,7 @@
 import { galleryItems } from './gallery-items.js';
 // Change code below this line
 
-console.log(galleryItems);
+// console.log(galleryItems);
 
 // element ul.gallery
 const gallery = document.querySelector(".gallery");
@@ -30,19 +30,31 @@ function createGallery (gallery) {
 gallery.innerHTML = galleryMarkup;
 
 
-
 gallery.addEventListener('click', (event) => {
+
     event.preventDefault();
+    
+    if(event.target.nodeName !== 'IMG') {    
+        // console.log('not IMG');
+        return
+    }
 
     const instance = basicLightbox.create(
-    `<img class="gallery__image" src="${event.target.dataset.source}" >`
-    );
-        instance.show(); 
+    `<img class="gallery__image" src="${event.target.dataset.source}",
+     alt = ${event.target.alt},
+      >`,
+        )
 
+    instance.show();
+
+    
+    document.addEventListener('keydown', (event) => {
+        if(event.code === 'Escape') {
+            instance.close(); }
     });
 
 
-    
+})
 
 
     
@@ -60,4 +72,36 @@ gallery.addEventListener('click', (event) => {
 
 
 
+// =============================== --- using forEach() --- ======================================
 
+// let listGallery = '';
+
+// galleryItems.forEach ((item) => {
+//  listGallery += 
+//     `       
+//     <li class="gallery__item">
+//         <a class="gallery__link" href="large-image.jpg">
+//             <img
+//                 class="gallery__image"
+//                 src="${item.preview}"
+//                 data-source="${item.original}"
+//                 alt="${item.description}"
+//             />
+//         </a>
+//     </li>   
+// `
+// });
+
+
+// gallery.innerHTML = listGallery;
+
+
+// gallery.addEventListener('click', (event) => {
+//     event.preventDefault();
+
+//     const instance = basicLightbox.create(
+//     `<img class="gallery__image" src="${event.target.dataset.source}" >`
+//     );
+//         instance.show(); 
+
+//     });
